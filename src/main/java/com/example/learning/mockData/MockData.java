@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
+import java.util.Random;
 
 @Service
 public class MockData {
@@ -44,39 +45,47 @@ public class MockData {
     }
 
     private void initializeProducts() {
-        mockProduct("Classica", "Wyjątkowy Smak", BigDecimal.valueOf(95) ,50);
-        mockProduct("Pienaroma", "Cudowny Smak", BigDecimal.valueOf(105) ,60);
-        mockProduct("Classic", "Wyjątkowy Smak", BigDecimal.valueOf(99) ,50);
-        mockProduct("Gold", "Wyjątkowy Smak", BigDecimal.valueOf(90) ,60);
-        mockProduct("Qualita", "Wyjątkowo delikatna", BigDecimal.valueOf(79) ,50);
-        mockProduct("Mattina", "Mocna", BigDecimal.valueOf(95) ,40);
-        mockProduct("Rossa", "Delikatna", BigDecimal.valueOf(80) ,50);
-        mockProduct("Argento", "Klasyczna", BigDecimal.valueOf(99) ,40);
-        mockProduct("Mago", "Mocna", BigDecimal.valueOf(123) ,50);
-        mockProduct("Dopio", "Wyjątkowo smaczna", BigDecimal.valueOf(111) ,50);
-        mockProduct("Lucia", "Wyjątkowy Smak", BigDecimal.valueOf(110) ,40);
-        mockProduct("Kimbo", "Wyjątkowy Smak", BigDecimal.valueOf(98) ,50);
-        mockProduct("Barbera", "Wyśmienity Smak", BigDecimal.valueOf(94) ,60);
-        mockProduct("Espresso", "Smaczna", BigDecimal.valueOf(85) ,50);
-
+        mockProductCoffee("Classica", "Wyjątkowy Smak");
+        mockProductCoffee("Pienaroma", "Cudowny Smak");
+        mockProductCoffee("Classic", "Wyjątkowy Smak");
+        mockProductCoffee("Gold", "Wyjątkowy Smak");
+        mockProductCoffee("Qualita", "Wyjątkowo delikatna");
+        mockProductCoffee("Mattina", "Mocna");
+        mockProductCoffee("Rossa", "Delikatna");
+        mockProductCoffee("Argento", "Klasyczna");
+        mockProductCoffee("Mago", "Mocna");
+        mockProductCoffee("Dopio", "Wyjątkowo smaczna");
+        mockProductCoffee("Lucia", "Wyjątkowy Smak");
+        mockProductCoffee("Kimbo", "Wyjątkowy Smak");
+        mockProductCoffee("Barbera", "Wyśmienity Smak");
+        mockProductCoffee("Espresso", "Smaczna");
     }
 
-    private void mockProduct(String productName,
-                             String description,
-                             BigDecimal productPrice,
-                             Integer stockAmount) {
+    private void mockProductCoffee(String productName, String description) {
         Product product = new Product();
         product.setProductName(productName);
         product.setDescription(description);
         product.setProductUrl("https://kawyherbaty.pl/userdata/gfx/7826b0d5538ca24b5de21973a0bf4a9e.jpg");
-        product.setProductPrice(productPrice);
         product.setProductType(ProductType.COFFEE);
-        product.setStockAmount(stockAmount);
+        Random random = new Random();
+        product.setStockAmount(random.nextInt(100));
+        product.setProductPrice(BigDecimal.valueOf(random.nextInt(40)+40));
         productRepository.save(product);
     }
 
     private void initializeCategories() {
-        
+        createCategory(1L, "Kawa Ziarnista");
+        createCategory(2L, "Kawa Rozpuszczalna");
+        createCategory(3L,"Kawa Mielona");
+        createCategory(4L, "Maszyny");
+        createCategory(5L, "Dodatki");
+    }
+
+    private void createCategory(Long parentId, String name) {
+        Category category = new Category();
+        category.setParentId(parentId);
+        category.setName(name);
+        categoryRepository.save(category);
     }
 
     private void initializeCompanies() {
