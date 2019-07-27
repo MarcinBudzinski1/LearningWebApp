@@ -24,6 +24,9 @@ public class MainController {
         this.userRegistrationService = userRegistrationService;
     }
 
+    @GetMapping(value = "/about")
+    public String aboutPage(){return "about";}
+
     @GetMapping(value = {"/","/index"})
     public String homePage(){return "index";}
 

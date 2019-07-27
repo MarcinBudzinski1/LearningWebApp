@@ -36,10 +36,10 @@ public class MockData {
         if (categoryRepository.checkSize() == 0){
             initializeCategories();
         }
-        if (companyRepository.checkSize() == 0){
+        if (companyRepository.count() == 0){
             initializeCompanies();
         }
-        if (productRepository.checkSize() == 0) {
+        if (productRepository.count() == 0) {
             initializeProducts();
         }
     }
@@ -68,7 +68,7 @@ public class MockData {
         product.setProductUrl("https://kawyherbaty.pl/userdata/gfx/7826b0d5538ca24b5de21973a0bf4a9e.jpg");
         product.setProductType(ProductType.COFFEE);
         Random random = new Random();
-        product.setStockAmount(random.nextInt(100));
+        product.setStockAmount(random.nextInt(40)+10);
         product.setProductPrice(BigDecimal.valueOf(random.nextInt(40)+40));
         product.setCategory(categoryRepository.findCategoryById(1L).orElse(null));
         productRepository.save(product);

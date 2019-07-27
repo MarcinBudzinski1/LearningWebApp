@@ -15,7 +15,21 @@
 
 <div th:replace="fragments/header :: header"></div>
 
+<ul>
+    <li>
+        <a href="/logout" style="float: right">Wyloguj</a>
+    </li>
 
+    <li th:if="!${@userContextService.getLoggedUserEmail()}">
+        <a href="/register">Rejestracja</a>
+        <a href="/login">Login</a>
+    </li>
+    <p th:if="${@userContextService.getLoggedUserEmail()}"
+       th:text="'Zalogowano jako: '+ ${@userContextService.getLoggedUserEmail()}"
+       style="float: right;color: black"></p>
+    <li th:if="${@userContextService.user()}">
+    </li>
+</ul>
 
 <div th:replace="fragments/footer :: footer"></div>
 
