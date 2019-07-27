@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edycja produktu</title>
+    <th:block th:replace="fragments/header :: header-css"></th:block>
+
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<form th:object="${productToEdit}" th:action="@{/admin/product}" method="post">
+    <label>
+        <input hidden=hidden th:value="*{id}" th:field="*{id}">
+    </label>
+    <label>
+        <input type="text" th:field="*{productName}" placeholder="Nazwa produktu">
+    </label>
+    <label>
+        <input type="text" th:field="*{description}" placeholder="Opis">
+    </label>
+    <label>
+        <input type="text" th:field="*{productUrl}" placeholder="Url obrazka">
+    </label>
+    <label>
+        <input type="number" th:field="*{stockAmount}" placeholder="Stan magazynowy">
+    </label>
+    <label>
+        <input type="number" step="0.01" th:field="*{productPrice}" placeholder="Cena">
+    </label>
+    <label>
+        <select th:field="*{productType}">
+            <option th:value="''" th:text="'Typ produktu'"></option>
+            <option th:selected="${productToEdit.productType eq pt}" th:each="pt : ${productTypes}" th:value="${pt}" th:text="${pt.type}"></option>
+        </select>
+    </label>
+
+    <label>
+        <select  th:field="*{categoryId}">
+            <option th:value="null" th:text="Kategoria"></option>
+            <option th:selected="${cat.id eq productToEdit.categoryId }" th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.text}"></option>
+        </select>
+    </label>
+    <button>Zmień produkt</button>
+</form>
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
