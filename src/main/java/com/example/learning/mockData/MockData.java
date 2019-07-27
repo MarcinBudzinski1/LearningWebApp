@@ -70,6 +70,7 @@ public class MockData {
         Random random = new Random();
         product.setStockAmount(random.nextInt(100));
         product.setProductPrice(BigDecimal.valueOf(random.nextInt(40)+40));
+        product.setCategory(categoryRepository.findCategoryById(1L).orElse(null));
         productRepository.save(product);
     }
 
