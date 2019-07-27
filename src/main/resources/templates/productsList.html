@@ -31,7 +31,7 @@
     <div id="products" th:each="prod : ${products}"  class="list-group">
         <div class="item col-xs-4 col-lg-4">
             <div class="thumbnail">
-                <img class="group list-group-image" style="max-height: 150px" th:src="${prod.productUrl}" alt="" />
+                <img class="group list-group-image" style="max-height: 150px" th:src="${prod.productUrl}" alt=""  src=""/>
                 <div class="caption">
                     <h4 th:text="${prod.productName}" class="group inner list-group-item-heading"></h4>
                     <h5 th:text="${prod.categoryName}" class="group inner list-group-item-heading"></h5>

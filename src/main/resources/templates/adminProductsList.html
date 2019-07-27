@@ -10,12 +10,16 @@
 <div th:replace="fragments/header :: header"></div>
 
 <form th:action="@{/admin/products}">
-    <input type="text" th:value="${query}" name="query">
-    <select name="productType">
-        <option th:value="''" th:text="Wybierz"></option>
-        <option th:selected="${productType eq pt}" th:each="pt : ${productTypes}" th:value="${pt}"
-                th:text="${pt.type}"></option>
-    </select>
+    <label>
+        <input type="text" th:value="${query}" name="query">
+    </label>
+    <label>
+        <select name="productType">
+            <option th:value="''" th:text="Wybierz"></option>
+            <option th:selected="${productType eq pt}" th:each="pt : ${productTypes}" th:value="${pt}"
+                    th:text="${pt.type}"></option>
+        </select>
+    </label>
     <button>szukaj</button>
 
 </form>
