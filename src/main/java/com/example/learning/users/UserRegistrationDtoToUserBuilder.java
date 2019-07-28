@@ -2,9 +2,9 @@ package com.example.learning.users;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-public class UserRegistrationDtoToUserBuilder {
+class UserRegistrationDtoToUserBuilder {
 
-    public static Customer rewriteToCustomer(CustomerRegistrationDto dto, PasswordEncoder passwordEncoder) {
+    static Customer rewriteToCustomer(CustomerRegistrationDto dto, PasswordEncoder passwordEncoder) {
         Customer customer = new Customer();
         customer.setFirstName(dto.getFirstName().trim());
         customer.setSurname(dto.getSurname().trim());

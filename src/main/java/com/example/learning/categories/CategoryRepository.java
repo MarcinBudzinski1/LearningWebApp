@@ -25,11 +25,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
         return findById(id);
     }
 
-
-    default List<Category> findCategoriesByName(String searchText) {
-        return searchText.isEmpty() ? findAll() : findByNameLike(searchText);
-    }
-
     @Transactional
     default void updateCategory(Category categoryInMemoryDto) {
         save(categoryInMemoryDto);

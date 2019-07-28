@@ -23,7 +23,6 @@ import java.util.List;
 public class Order extends BaseEntity implements Serializable {
 
     private String customerName;
-
     private BigDecimal totalCost;
 
     @Embedded

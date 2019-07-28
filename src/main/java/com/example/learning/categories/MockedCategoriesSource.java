@@ -84,7 +84,6 @@ public class MockedCategoriesSource {
         populateParentID(categoryMap, ++depth);
     }
 
-
     private int calculateDepth(String line) {
         if (line.startsWith(" ") || line.startsWith("\t")) {
             return line.split("\\S")[0].length();

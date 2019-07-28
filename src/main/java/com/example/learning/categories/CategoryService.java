@@ -24,14 +24,15 @@ public abstract class CategoryService {
         return categoryRepository.findCategoryById(movedId);
     }
 
-    public void moveCategory(String newParentId, String movedId) {
-        Category movedCategory = getCategoryById(Long.valueOf(movedId)).get();
+    void moveCategory(String newParentId, String movedId) {
+        Category movedCategory = getCategoryById(Long.valueOf(movedId)).orElse(null);
+        assert movedCategory != null;
         movedCategory.setParentId(Long.valueOf(newParentId));
         categoryRepository.updateCategory(movedCategory);
     }
 
 
-    protected CategoryDto buildCategoryDto(Category c) {
+    private CategoryDto buildCategoryDto(Category c) {
         CategoryDto categoryDto = new CategoryDto();
         categoryDto.setId(c.getId());
         categoryDto.setParentId(c.getParentId());
@@ -41,7 +42,7 @@ public abstract class CategoryService {
         return categoryDto;
     }
 
-    protected CategoryDto populateStateAndOpenParents(CategoryDto dto, String searchText) {
+    CategoryDto populateStateAndOpenParents(CategoryDto dto, String searchText) {
         if (searchText != null && dto.getName().equals(searchText.trim())) {
             dto.getState().setOpened(true);
             dto.getState().setSelected(true);
@@ -50,7 +51,7 @@ public abstract class CategoryService {
         return dto;
     }
 
-    protected void openParent(CategoryDto child) {
+    private void openParent(CategoryDto child) {
         CategoryDto parentCat = child.getParentCat();
         if (parentCat == null) {
             return;
@@ -59,7 +60,7 @@ public abstract class CategoryService {
         openParent(parentCat);
     }
 
-    public void addCategory(String catName, Long parentId) {
+    void addCategory(String catName, Long parentId) {
         categoryRepository.save(new Category(parentId == 0 ? null : parentId, catName));
     }
 }

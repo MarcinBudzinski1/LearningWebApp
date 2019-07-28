@@ -13,7 +13,4 @@ public interface UserRepository<T extends User> extends JpaRepository<T, Long> {
 
     boolean existsByUsername(String username);
 
-    @Query(value = "select count(c) from Category c")
-    Long checkSize();
-
 }

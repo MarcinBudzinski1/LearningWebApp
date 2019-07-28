@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UserRegistrationService {
+public class
+UserRegistrationService {
 
     private PasswordEncoder passwordEncoder;
     private RoleRepository roleRepository;

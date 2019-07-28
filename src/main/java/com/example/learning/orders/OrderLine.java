@@ -10,7 +10,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-
 @Setter
 @Getter
 @Entity

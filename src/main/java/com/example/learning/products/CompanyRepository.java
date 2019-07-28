@@ -8,11 +8,5 @@ import javax.annotation.PostConstruct;
 
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Long> {
-    @Query(value = "select count(c) from Category c")
-    Long checkSize();
-
-    @PostConstruct
-    default void initializeCompanies(){}
-
 
 }

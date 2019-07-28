@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 @Service
 public class FilterOutCategoriesService extends CategoryService {
 
-
     @Autowired
     public FilterOutCategoriesService(CategoryRepository categoryRepository) {
         super(categoryRepository);

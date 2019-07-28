@@ -9,6 +9,7 @@ import com.example.learning.users.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Service
 public class OrdersService {
@@ -31,17 +32,17 @@ public class OrdersService {
         this.productRepository = productRepository;
     }
 
-    public Order placeOrder() {
+    Order placeOrder() {
         Cart cart = userContextService.getCart();
         String loggedUserEmail = userContextService.getLoggedUserEmail();
-        Customer customer = userRepository.findByUsername(loggedUserEmail).get();
+        Customer customer = userRepository.findByUsername(loggedUserEmail).orElse(null);
 
         cart.getOrderLines()
                 .stream()
                 .peek(p -> p.getProduct().setStockAmount(p.getProduct().getStockAmount() - p.getQuantity()))
                 .map(OrderLine::getProduct).forEach(productRepository::save);
 
-        Order order = ordersRepository.save(new Order(customer.getUsername(), cartService.calculateTotalCartPrice(cart), customer.getUserAddress(), customer.getUserAddress(), LocalDateTime.now(), cart.getOrderLines(), customer, OrderStatus.NEW));
+        Order order = ordersRepository.save(new Order(Objects.requireNonNull(customer).getUsername(), cartService.calculateTotalCartPrice(cart), customer.getUserAddress(), customer.getUserAddress(), LocalDateTime.now(), cart.getOrderLines(), customer, OrderStatus.NEW));
         userContextService.clearCart();
         return order;
     }

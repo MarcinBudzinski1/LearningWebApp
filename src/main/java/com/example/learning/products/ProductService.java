@@ -27,13 +27,13 @@ public class ProductService {
         this.categoryService = categoryService;
     }
 
-    public void createNewProduct(String productName,
-                                 String description,
-                                 String productUrl,
-                                 BigDecimal productPrice,
-                                 Long categoryId,
-                                 Integer stockAmount,
-                                 ProductType productType) {
+    void createNewProduct(String productName,
+                          String description,
+                          String productUrl,
+                          BigDecimal productPrice,
+                          Long categoryId,
+                          Integer stockAmount,
+                          ProductType productType) {
     Product product = new Product();
     product.setProductName(productName);
     product.setDescription(description);
@@ -47,15 +47,15 @@ public class ProductService {
     productRepository.save(product);
     }
 
-    public Optional<ProductDto> findProductById(Long id) {
+    Optional<ProductDto> findProductById(Long id) {
         return productRepository.findProductById(id).map(productToProductDtoBuilder::buildDto);
     }
 
-    public List<Product> findProductsToEdit(String query, String productType) {
+    List<Product> findProductsToEdit(String query, String productType) {
         return findProducts(query, productType);
     }
 
-    public Optional<Product> findProducts(Long id) {
+    Optional<Product> findProducts(Long id) {
         return productRepository.findProductById(id);
     }
 
@@ -72,7 +72,7 @@ public class ProductService {
         return productRepository.findProductsByProductNameAndProductType(query, ProductType.valueOf(productType));
     }
 
-    public List<ProductDto> findProductsForCustomer(String query, String productType) {
+    List<ProductDto> findProductsForCustomer(String query, String productType) {
         return findProducts(query, productType)
                 .stream()
                 .filter(e -> ObjectUtils.defaultIfNull(e.getStockAmount(), 0) > 0)
@@ -80,13 +80,8 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    public void updateProduct(ProductDto productDto) {
+    void updateProduct(ProductDto productDto) {
         Product s = productToProductDtoBuilder.buildEntity(productDto);
         productRepository.save(s);
     }
-
-    private Sort getSort(String name, String direction) {
-        return direction.equalsIgnoreCase(DataTablesOrder.Direction.asc.name()) ? Sort.by(name).ascending() : Sort.by(name).descending();
-    }
-
 }

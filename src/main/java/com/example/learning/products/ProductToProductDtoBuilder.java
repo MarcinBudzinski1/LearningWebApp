@@ -22,7 +22,7 @@ public class ProductToProductDtoBuilder {
         this.productRepository = productRepository;
     }
 
-    public ProductDto buildDto(Product product) {
+    ProductDto buildDto(Product product) {
         return ProductDto.builder()
                 .id(product.getId())
                 .productName(product.getProductName())
@@ -37,8 +37,9 @@ public class ProductToProductDtoBuilder {
                 .build();
     }
 
-    public Product buildEntity(ProductDto dto) {
-        Product product = new Product();
+    Product buildEntity(ProductDto dto) {
+        Product product;
+        product = productRepository.getOne(dto.getId());
         product.setProductName(dto.getProductName());
         product.setDescription(dto.getDescription());
         product.setProductUrl(dto.getProductUrl());

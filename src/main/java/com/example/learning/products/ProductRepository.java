@@ -17,8 +17,4 @@ public interface ProductRepository<T extends Product> extends JpaRepository<Prod
     List<T> findProductsByProductName(String searchText);
 
     List<T> findProductsByProductNameAndProductType(String searchText, ProductType productType);
-
-
-    @Query(value = "select count(c) from Category c")
-    Long checkSize();
 }

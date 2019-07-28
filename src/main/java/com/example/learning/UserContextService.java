@@ -61,13 +61,6 @@ public class UserContextService {
         }
     }
 
-    public void getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getAuthorities().stream().anyMatch(e -> RoleTypeEnum.USER.getRoleName().equalsIgnoreCase(e.getAuthority()))) {
-            System.out.println();
-        }
-    }
-
     public void clearCart() {
         cart = new Cart();
     }

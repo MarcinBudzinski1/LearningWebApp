@@ -27,9 +27,8 @@ public class AdminCategoriesController {
 
     @PostMapping("/categories/moveCat")
     @ResponseBody
-    public void moveCat(@RequestParam(required = true) String oldParentId,
-                        @RequestParam(required = true) String newParentId,
-                        @RequestParam(required = true) String movedId) {
+    public void moveCat(@RequestParam() String newParentId,
+                        @RequestParam() String movedId) {
         categoriesService.moveCategory(newParentId, movedId);
     }
 
